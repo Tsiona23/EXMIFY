@@ -26,10 +26,15 @@ const app = express();
 /* =======================
    MIDDLEWARE
 ======================= */
-app.use(cors({
-  origin: "http://localhost:5173", // Allow your Vite frontend
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // Local development
+      process.env.CLIENT_URL, // Production frontend
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
@@ -44,13 +49,9 @@ app.get("/", (req, res) => {
    API ROUTES
 ======================= */
 app.use("/api/auth", authRoutes);
-
 app.use("/api/exams", examRoutes);
-
 app.use("/api/results", resultRoutes);
-
 app.use("/api/analytics", analyticsRoutes);
-
 app.use("/api/profile", profileRoutes);
 
 /* =======================
@@ -60,8 +61,12 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      process.env.CLIENT_URL,
+    ],
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
@@ -81,5 +86,5 @@ io.on("connection", (socket) => {
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
