@@ -30,7 +30,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // Local development
-      "https://exmify.vercel.app/", // Production frontend
+      "https://exmify.vercel.app", // Production frontend
     ],
     credentials: true,
   })
