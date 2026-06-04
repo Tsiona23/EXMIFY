@@ -1,7 +1,15 @@
 import axios from "axios";
 
+const defaultApiHost = "https://exmify.onrender.com";
+
+const apiBase = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/api`
+  : window.location.hostname === "localhost"
+  ? "/api"
+  : `${defaultApiHost}/api`;
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: apiBase,
   withCredentials: true, // important for auth stability
 });
 

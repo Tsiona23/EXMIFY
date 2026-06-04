@@ -30,8 +30,8 @@ export default function Login() {
 
       if (res.data && res.data.token) {
         const { token, user } = res.data;
-        login(token, user); 
-        
+        login(user, token);
+
         showNotification("Welcome Back!", `Logged in as ${user.name || user.email}.`, "success");
         const target = user.role === 'admin' ? '/admin' : '/exams';
         navigate(target, { replace: true });
