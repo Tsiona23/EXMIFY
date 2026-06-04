@@ -30,7 +30,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // Local development
-      process.env.CLIENT_URL, // Production frontend
+      "https://exmify.vercel.app/", // Production frontend
     ],
     credentials: true,
   })
@@ -63,7 +63,7 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",
-      process.env.CLIENT_URL,
+      "https://exmify.vercel.app/",
     ],
     methods: ["GET", "POST"],
     credentials: true,
