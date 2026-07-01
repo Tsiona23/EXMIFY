@@ -20,7 +20,7 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-slate-50 dark:bg-[#070B14] text-slate-900 dark:text-[#F8FAFC] transition-colors duration-300 overflow-x-hidden">
+    <div className="flex min-h-screen w-full overflow-x-hidden bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-[#070B14] dark:text-[#F8FAFC]">
       <div
         className={`fixed inset-0 z-30 bg-slate-950/60 backdrop-blur-sm md:hidden ${sidebarOpen ? "block" : "hidden"}`}
         onClick={() => setSidebarOpen(false)}
@@ -28,8 +28,8 @@ export default function Layout() {
 
       <Sidebar mobileOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 flex flex-col bg-slate-50 dark:bg-[#070B14] min-h-screen md:ml-0">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/80 px-4 backdrop-blur-xl dark:border-white/5 dark:bg-[#0F172A]/80 sm:px-6 lg:px-8">
+      <div className="flex min-h-screen w-full flex-1 flex-col bg-slate-50 dark:bg-[#070B14] md:ml-0">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/80 px-3 backdrop-blur-xl dark:border-white/5 dark:bg-[#0F172A]/80 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
@@ -39,7 +39,7 @@ export default function Layout() {
               <FiMenu />
             </button>
 
-            <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-[#94A3B8]">
+            <div className="max-w-[60vw] text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-[#94A3B8] sm:max-w-none">
               Portal /{" "}
               <span className="text-[#22D3EE] capitalize">{role} Dashboard</span>
             </div>
@@ -155,7 +155,7 @@ export default function Layout() {
         <motion.main
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8"
+          className="flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8"
         >
           <Outlet />
         </motion.main>

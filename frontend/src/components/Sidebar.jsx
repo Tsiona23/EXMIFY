@@ -21,7 +21,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 flex w-72 max-w-[85vw] flex-col border-r border-slate-200 bg-slate-50 p-6 text-slate-600 transition-transform duration-300 dark:border-white/[0.05] dark:bg-[#111827] dark:text-[#CBD5E1] md:sticky md:translate-x-0 md:min-h-screen md:p-8 ${
+      className={`fixed inset-y-0 left-0 z-40 flex h-screen w-72 max-w-[85vw] flex-col border-r border-slate-200 bg-slate-50 p-6 text-slate-600 shadow-2xl transition-transform duration-300 dark:border-white/[0.05] dark:bg-[#111827] dark:text-[#CBD5E1] md:sticky md:h-auto md:translate-x-0 md:min-h-screen md:shadow-none md:p-8 ${
         mobileOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
