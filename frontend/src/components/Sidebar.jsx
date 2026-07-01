@@ -1,9 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
 import { useAuth } from "../hooks/useAuth";
-import { FiGrid, FiBarChart2, FiBookOpen, FiAward } from "react-icons/fi";
+import { FiGrid, FiBarChart2, FiBookOpen, FiAward, FiX } from "react-icons/fi";
 
-export default function Sidebar() {
+export default function Sidebar({ mobileOpen, onClose }) {
   const { user } = useAuth();
   const role = user?.role;
   const location = useLocation();
@@ -12,7 +12,7 @@ export default function Sidebar() {
     role === "admin"
       ? [
           { name: "Dashboard", path: "/admin", icon: FiGrid },
-          { name: "Analytics", path: "/analytics", icon: FiBarChart2 }, // ✅ works now
+          { name: "Analytics", path: "/analytics", icon: FiBarChart2 },
         ]
       : [
           { name: "Available Exams", path: "/exams", icon: FiBookOpen },
@@ -20,14 +20,25 @@ export default function Sidebar() {
         ];
 
   return (
-    <aside className="w-72 min-h-screen bg-slate-50 dark:bg-[#111827] text-slate-600 dark:text-[#CBD5E1] p-8 flex flex-col border-r border-slate-200 dark:border-white/[0.05] sticky top-0 transition-colors duration-300">
-      <div className="mb-12 px-2">
-        <h1 className="text-2xl font-black text-slate-900 dark:text-[#F8FAFC] tracking-tighter flex items-center gap-3 font-['Sora']">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] rounded-xl flex items-center justify-center text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+    <aside
+      className={`fixed inset-y-0 left-0 z-40 flex w-72 max-w-[85vw] flex-col border-r border-slate-200 bg-slate-50 p-6 text-slate-600 transition-transform duration-300 dark:border-white/[0.05] dark:bg-[#111827] dark:text-[#CBD5E1] md:sticky md:translate-x-0 md:min-h-screen md:p-8 ${
+        mobileOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
+      <div className="mb-8 flex items-center justify-between px-2 md:mb-12">
+        <h1 className="flex items-center gap-3 text-2xl font-black tracking-tighter text-slate-900 dark:text-[#F8FAFC] font-['Sora']">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] text-white shadow-[0_0_20px_rgba(59,130,246,0.3)]">
             E
           </div>
           EXAM<span className="text-[#3B82F6]">IFY</span>
         </h1>
+        <button
+          onClick={onClose}
+          className="rounded-xl p-2 text-slate-600 transition-colors hover:bg-slate-200 dark:text-slate-200 dark:hover:bg-slate-800 md:hidden"
+          aria-label="Close menu"
+        >
+          <FiX />
+        </button>
       </div>
 
       <nav className="flex-1 space-y-1.5 font-['Inter']">
@@ -35,24 +46,31 @@ export default function Sidebar() {
           <Link
             key={link.path}
             to={link.path}
-            className={`flex items-center gap-4 px-5 py-4 rounded-2xl text-sm font-bold transition-all duration-300 group ${
+            onClick={onClose}
+            className={`flex items-center gap-4 rounded-2xl px-5 py-4 text-sm font-bold transition-all duration-300 group ${
               location.pathname === link.path
-                ? "bg-[#3B82F6]/10 text-slate-900 dark:text-[#F8FAFC] shadow-[inset_0_0_20px_rgba(59,130,246,0.05)] border-l-4 border-[#3B82F6]"
-                : "text-slate-500 dark:text-[#94A3B8] hover:bg-slate-200 dark:hover:bg-white/[0.03] hover:text-slate-900 dark:hover:text-[#F8FAFC]"
+                ? "border-l-4 border-[#3B82F6] bg-[#3B82F6]/10 text-slate-900 shadow-[inset_0_0_20px_rgba(59,130,246,0.05)] dark:text-[#F8FAFC]"
+                : "text-slate-500 hover:bg-slate-200 hover:text-slate-900 dark:text-[#94A3B8] dark:hover:bg-white/[0.03] dark:hover:text-[#F8FAFC]"
             }`}
           >
-            <link.icon className={`text-xl ${
-              location.pathname === link.path ? "text-[#3B82F6] drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "group-hover:text-[#3B82F6]"
-            }`} />
+            <link.icon
+              className={`text-xl ${
+                location.pathname === link.path
+                  ? "text-[#3B82F6] drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                  : "group-hover:text-[#3B82F6]"
+              }`}
+            />
             {link.name}
           </Link>
         ))}
       </nav>
 
-      <div className="pt-8 border-t border-slate-200 dark:border-white/[0.05]">
-        <div className="mb-6 px-4 py-3 rounded-2xl bg-white dark:bg-[#0F172A] border border-slate-200 dark:border-white/[0.03] shadow-sm">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-[#94A3B8]">Account Level</p>
-          <p className="text-xs font-bold text-[#3B82F6] mt-1 capitalize">{role || 'User'}</p>
+      <div className="border-t border-slate-200 pt-6 dark:border-white/[0.05]">
+        <div className="mb-6 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm dark:border-white/[0.03] dark:bg-[#0F172A]">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-[#94A3B8]">
+            Account Level
+          </p>
+          <p className="mt-1 text-xs font-bold capitalize text-[#3B82F6]">{role || "User"}</p>
         </div>
         <LogoutButton />
       </div>
