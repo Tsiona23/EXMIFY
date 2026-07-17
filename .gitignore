@@ -6,9 +6,3 @@ node_modules/
 backend/.env
 frontend/.env
 
-# Logs
-*.log
-
-# OS files
-.DS_Store
-Thumbs.db
