@@ -1,7 +1,5 @@
 # 🎓 EXMIFY — Online Examination & Assessment Platform
 
-![EXMIFY Banner](./screenshots/banner.png)
-
 EXMIFY is a modern **full-stack online examination and assessment management system** built with the MERN stack. It provides a complete platform for administrators to create exams, manage questions, evaluate performance, and for users to take assessments, review results, and track progress.
 
 The application follows a scalable architecture with a separated **React frontend** and **Node.js/Express backend**, communicating through RESTful APIs with real-time capabilities using Socket.IO.
